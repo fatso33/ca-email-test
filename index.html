@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>iPhone Email Test</title>
+<style>
+:root {
+  --bg: #f4f6f8; --card: #ffffff; --ink: #1b2329; --muted: #5a6670; --rule: #d5dde2;
+  --accent: #1f5f8b; --accent-ink: #ffffff; --soft: #e7f0f6; --warn: #c2410c;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #12171b; --card: #182026; --ink: #e4eaee; --muted: #9aa8b2; --rule: #2c3842;
+    --accent: #7db6dc; --accent-ink: #0d1a24; --soft: #1c2e3b; --warn: #f08a5d; color-scheme: dark; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 17px; line-height: 1.5;
+  padding: max(16px, env(safe-area-inset-top)) 16px max(32px, env(safe-area-inset-bottom)); }
+main { max-width: 34rem; margin: 0 auto; display: grid; gap: 16px; }
+h1 { font-size: 1.6rem; line-height: 1.2; margin: 8px 0 0; }
+h2 { font-size: 1.15rem; margin: 0; }
+p { margin: 0; }
+.card { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; padding: 16px; display: grid; gap: 12px; }
+.step { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); }
+.muted { color: var(--muted); font-size: 0.92rem; }
+.warn { color: var(--warn); font-size: 0.92rem; }
+button, .btn { appearance: none; border: 0; border-radius: 10px; background: var(--accent); color: var(--accent-ink); font: inherit; font-weight: 600;
+  padding: 14px 16px; width: 100%; text-align: center; text-decoration: none; display: block; cursor: pointer; }
+button.secondary { background: var(--soft); color: var(--ink); }
+button:focus-visible, .btn:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 6px; }
+legend { font-weight: 600; margin-bottom: 4px; padding: 0; }
+.opts { display: flex; flex-wrap: wrap; gap: 8px; }
+.opts label { display: flex; align-items: center; gap: 6px; background: var(--soft); border-radius: 8px; padding: 8px 12px; }
+input[type="email"], input[type="text"], textarea { width: 100%; font: inherit; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--rule); background: var(--bg); color: var(--ink); }
+textarea { min-height: 12rem; font-family: ui-monospace, Menlo, monospace; font-size: 0.85rem; }
+ol { margin: 0; padding-left: 1.2rem; display: grid; gap: 4px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>iPhone email test</h1>
+  <p>Thanks for helping. This checks whether an app can open an email on your iPhone with the PDFs already attached. It takes about 5 minutes and uses <strong>fake data only</strong>. Nothing is sent anywhere unless you press Send yourself.</p>
+  <p class="muted">Please open this page in <strong>Safari</strong>. At the end, copy your results and text them back.</p>
+
+  <section class="card">
+    <div class="step">Test 1 of 2: share menu with PDFs</div>
+    <ol>
+      <li>Tap the button below. Your iPhone's share menu should appear.</li>
+      <li>Choose <strong>Mail</strong> (or your usual email app if Mail isn't listed).</li>
+      <li>Look at the email draft, then answer the questions below. <strong>Don't send it</strong>, or send it only to yourself.</li>
+    </ol>
+    <button id="share-btn" type="button">Open share menu with 2 PDFs</button>
+    <p id="share-status" class="muted" aria-live="polite"></p>
+
+    <fieldset data-q="t1_menu"><legend>Did the share menu appear?</legend>
+      <div class="opts"><label><input type="radio" name="t1_menu" value="yes">Yes</label><label><input type="radio" name="t1_menu" value="no">No</label></div></fieldset>
+    <fieldset data-q="t1_app"><legend>Which app did you pick?</legend>
+      <div class="opts"><label><input type="radio" name="t1_app" value="Apple Mail">Mail</label><label><input type="radio" name="t1_app" value="Gmail">Gmail</label><label><input type="radio" name="t1_app" value="Outlook">Outlook</label><label><input type="radio" name="t1_app" value="Other">Other</label></div></fieldset>
+    <fieldset data-q="t1_pdfs"><legend>How many PDFs were attached to the draft?</legend>
+      <div class="opts"><label><input type="radio" name="t1_pdfs" value="2">Both (2)</label><label><input type="radio" name="t1_pdfs" value="1">Only 1</label><label><input type="radio" name="t1_pdfs" value="0">None</label></div></fieldset>
+    <fieldset data-q="t1_subject"><legend>Was the subject line already filled in?</legend>
+      <div class="opts"><label><input type="radio" name="t1_subject" value="yes">Yes</label><label><input type="radio" name="t1_subject" value="no">No</label></div></fieldset>
+    <fieldset data-q="t1_body"><legend>Was there message text in the body?</legend>
+      <div class="opts"><label><input type="radio" name="t1_body" value="yes">Yes</label><label><input type="radio" name="t1_body" value="no">No</label></div></fieldset>
+    <fieldset data-q="t1_to"><legend>Was a recipient (To:) filled in?</legend>
+      <div class="opts"><label><input type="radio" name="t1_to" value="yes">Yes</label><label><input type="radio" name="t1_to" value="no">No</label></div></fieldset>
+  </section>
+
+  <section class="card">
+    <div class="step">Test 2 of 2: email link</div>
+    <p>This opens an email with the recipient, subject, and message filled in, but no attachments. Type your own email so the To: line has something real.</p>
+    <label for="own-email" class="muted">Your email (optional, stays on this phone)</label>
+    <input id="own-email" type="email" autocomplete="email" placeholder="you@example.com">
+    <a id="mailto-btn" class="btn" href="#">Open email draft</a>
+
+    <fieldset data-q="t2_open"><legend>Did an email draft open?</legend>
+      <div class="opts"><label><input type="radio" name="t2_open" value="yes">Yes</label><label><input type="radio" name="t2_open" value="no">No</label></div></fieldset>
+    <fieldset data-q="t2_app"><legend>Which app opened?</legend>
+      <div class="opts"><label><input type="radio" name="t2_app" value="Apple Mail">Mail</label><label><input type="radio" name="t2_app" value="Gmail">Gmail</label><label><input type="radio" name="t2_app" value="Outlook">Outlook</label><label><input type="radio" name="t2_app" value="Other">Other</label></div></fieldset>
+    <fieldset data-q="t2_filled"><legend>Were To:, subject, and message all filled in?</legend>
+      <div class="opts"><label><input type="radio" name="t2_filled" value="all">All three</label><label><input type="radio" name="t2_filled" value="some">Some</label><label><input type="radio" name="t2_filled" value="none">None</label></div></fieldset>
+  </section>
+
+  <section class="card">
+    <div class="step">About your email</div>
+    <fieldset data-q="usual_app"><legend>Which app do you normally use to email customers?</legend>
+      <div class="opts"><label><input type="radio" name="usual_app" value="Apple Mail">Mail</label><label><input type="radio" name="usual_app" value="Gmail">Gmail</label><label><input type="radio" name="usual_app" value="Outlook">Outlook</label><label><input type="radio" name="usual_app" value="Other">Other</label></div></fieldset>
+    <fieldset data-q="mail_setup"><legend>Is your work email set up in the iPhone Mail app?</legend>
+      <div class="opts"><label><input type="radio" name="mail_setup" value="yes">Yes</label><label><input type="radio" name="mail_setup" value="no">No</label><label><input type="radio" name="mail_setup" value="not sure">Not sure</label></div></fieldset>
+    <label for="notes" class="muted">Anything odd or worth mentioning? (optional)</label>
+    <input id="notes" type="text" placeholder="e.g. the PDF names looked wrong">
+  </section>
+
+  <section class="card">
+    <div class="step">Send back your results</div>
+    <p>Tap Copy, then paste it into a text message back to me.</p>
+    <textarea id="summary" readonly aria-label="Results summary"></textarea>
+    <button id="copy-btn" type="button">Copy results</button>
+    <p id="copy-status" class="muted" aria-live="polite"></p>
+  </section>
+</main>
+
+<script>
+// Builds a small one-page PDF from ASCII text lines. Offsets are byte counts, so text must stay ASCII.
+function makePdf(lines) {
+  const esc = (s) => s.replace(/\\/g, "\\\\").replace(/\(/g, "\\(").replace(/\)/g, "\\)");
+  let stream = "BT 72 730 Td ";
+  for (const l of lines) stream += `/F1 ${l.size} Tf ${l.size + 8} TL (${esc(l.text)}) Tj T* `;
+  stream += "ET";
+  const objs = [
+    "<< /Type /Catalog /Pages 2 0 R >>",
+    "<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
+    "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>",
+    "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>",
+    `<< /Length ${stream.length} >>\nstream\n${stream}\nendstream`,
+  ];
+  let pdf = "%PDF-1.4\n";
+  const offsets = [];
+  objs.forEach((o, i) => { offsets.push(pdf.length); pdf += `${i + 1} 0 obj\n${o}\nendobj\n`; });
+  const xref = pdf.length;
+  pdf += `xref\n0 ${objs.length + 1}\n0000000000 65535 f \n`;
+  for (const off of offsets) pdf += `${String(off).padStart(10, "0")} 00000 n \n`;
+  pdf += `trailer\n<< /Size ${objs.length + 1} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF\n`;
+  return pdf;
+}
+
+const SAMPLE = "SAMPLE ONLY - fictional test document";
+const estimate = new File([makePdf([
+  { size: 20, text: "Estimate E-1001 (Revision 1)" },
+  { size: 11, text: SAMPLE },
+  { size: 12, text: "Customer: Sample Commercial Client Ltd." },
+  { size: 12, text: "Job: Office washroom and kitchenette renovation" },
+  { size: 12, text: "Demolition and preparation ............ 8,000.00" },
+  { size: 12, text: "Plumbing and fixtures ................. 22,000.00" },
+  { size: 12, text: "Finishes and millwork .................. 30,000.00" },
+  { size: 12, text: "Subtotal ............................... 60,000.00" },
+  { size: 12, text: "HST 13% ................................. 7,800.00" },
+  { size: 14, text: "Total (CAD) ............................ 67,800.00" },
+])], "Estimate-E-1001-rev1.pdf", { type: "application/pdf" });
+const agreement = new File([makePdf([
+  { size: 20, text: "Agreement A-1001 (Revision 1)" },
+  { size: 11, text: SAMPLE },
+  { size: 12, text: "Incorporates Estimate E-1001, Revision 1." },
+  { size: 12, text: "Billing: 10% deposit, two 35% progress invoices, final balance." },
+  { size: 12, text: "Payment: due 28 days after the customer receives each invoice." },
+  { size: 12, text: "To approve, reply to this email naming both documents." },
+])], "Agreement-A-1001-rev1.pdf", { type: "application/pdf" });
+
+const SUBJECT = "Estimate E-1001 and Agreement A-1001 - Office renovation (SAMPLE)";
+const BODY = "Hi,\n\nPlease find attached Estimate E-1001 and Agreement A-1001 (Revision 1) for the office renovation.\n\nTo approve, reply to this email confirming you accept both documents.\n\nThanks\n\n(This is a fictional test email.)";
+
+const shareBtn = document.getElementById("share-btn");
+const shareStatus = document.getElementById("share-status");
+let shareOutcome = "not tried";
+const canShareFiles = !!(navigator.canShare && navigator.canShare({ files: [estimate, agreement] }));
+if (!canShareFiles) shareStatus.textContent = "This browser says it can't share files. Please tap the button anyway so we can record what happens, and make sure you're in Safari.";
+
+shareBtn.addEventListener("click", async () => {
+  try {
+    await navigator.share({ files: [estimate, agreement], title: SUBJECT, text: BODY });
+    shareOutcome = "share completed";
+    shareStatus.textContent = "Share finished. Now answer the questions below.";
+  } catch (err) {
+    shareOutcome = `share error: ${err && err.name ? err.name : "unknown"}`;
+    shareStatus.textContent = err && err.name === "AbortError"
+      ? "The share menu was closed. That's fine; answer the questions below."
+      : `Sharing failed (${err && err.name ? err.name : "unknown error"}). Answer the questions below anyway.`;
+  }
+  updateSummary();
+});
+
+const ownEmail = document.getElementById("own-email");
+const mailtoBtn = document.getElementById("mailto-btn");
+function updateMailto() {
+  const to = encodeURIComponent(ownEmail.value.trim() || "customer@example.com");
+  mailtoBtn.href = `mailto:${to}?subject=${encodeURIComponent(SUBJECT)}&body=${encodeURIComponent(BODY)}`;
+}
+ownEmail.addEventListener("input", updateMailto);
+updateMailto();
+
+const summary = document.getElementById("summary");
+function answer(name) {
+  const el = document.querySelector(`input[name="${name}"]:checked`);
+  return el ? el.value : "-";
+}
+function updateSummary() {
+  const lines = [
+    "EMAIL TEST RESULTS",
+    `Test 1 share menu appeared: ${answer("t1_menu")}`,
+    `Test 1 app picked: ${answer("t1_app")}`,
+    `Test 1 PDFs attached: ${answer("t1_pdfs")}`,
+    `Test 1 subject filled: ${answer("t1_subject")}`,
+    `Test 1 body filled: ${answer("t1_body")}`,
+    `Test 1 recipient filled: ${answer("t1_to")}`,
+    `Test 1 outcome: ${shareOutcome}`,
+    `Test 2 draft opened: ${answer("t2_open")}`,
+    `Test 2 app: ${answer("t2_app")}`,
+    `Test 2 fields filled: ${answer("t2_filled")}`,
+    `Usual email app: ${answer("usual_app")}`,
+    `Work email in iPhone Mail: ${answer("mail_setup")}`,
+    `Notes: ${document.getElementById("notes").value.trim() || "-"}`,
+    `Can share files: ${canShareFiles}`,
+    `Device: ${navigator.userAgent}`,
+  ];
+  summary.value = lines.join("\n");
+}
+document.addEventListener("change", updateSummary);
+document.getElementById("notes").addEventListener("input", updateSummary);
+updateSummary();
+
+document.getElementById("copy-btn").addEventListener("click", async () => {
+  const status = document.getElementById("copy-status");
+  updateSummary();
+  try {
+    await navigator.clipboard.writeText(summary.value);
+    status.textContent = "Copied. Paste it into a text message.";
+  } catch {
+    summary.focus();
+    summary.select();
+    status.textContent = "Couldn't copy automatically. The text is selected: tap and hold, then Copy.";
+  }
+});
+</script>
+</body>
+</html>
